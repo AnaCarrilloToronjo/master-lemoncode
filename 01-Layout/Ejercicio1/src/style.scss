@@ -1,0 +1,40 @@
+$primary-color: green;
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+.container-1 {
+  display: grid;
+  grid-template-columns: repeat(9, 100px);
+  grid-template-rows: 100px;
+  grid-gap: 5px;
+
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+
+    .color-box-text {
+      display: flex;
+      justify-content: center;
+      color: white;
+    }
+  }
+  .base-color {
+    background-color: $primary-color;
+  }
+
+  @for $i from 1 through 4 {
+    .darken-#{$i} {
+      background-color: darken($primary-color, $i * 3%);
+    }
+  }
+  @for $i from 1 through 4 {
+    .lighten-#{$i} {
+      background-color: lighten($primary-color, $i * 3%);
+    }
+  }
+}
