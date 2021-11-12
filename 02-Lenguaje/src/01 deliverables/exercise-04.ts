@@ -14,8 +14,7 @@ function isBookRead(
   if (!found) {
     return false;
   } else {
-    const { isRead } = found;
-    return isRead;
+    return found.isRead;
   }
 }
 
