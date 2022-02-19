@@ -1,0 +1,30 @@
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  width: 200px;
+  background-color: indianred;
+  color: white;
+
+  a:-webkit-any-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  .navbar-title {
+    padding: 5px;
+  }
+
+  .navbar-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    height: 50px;
+
+    &:hover {
+      margin: 0px;
+      background-color: lighten(indianred, 10%);
+    }
+  }
+}
