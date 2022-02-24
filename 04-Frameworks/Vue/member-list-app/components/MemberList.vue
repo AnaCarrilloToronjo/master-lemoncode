@@ -55,7 +55,8 @@ let lastPage:number;
 export default defineComponent({
   methods: {
     async changeOrganization() {
-      store.state.organization = this.organization;
+
+      store.commit('setOrganization', this.organization)
       const member_link = await membersList.get();
       this.list = member_link.members;
 
@@ -77,33 +78,25 @@ export default defineComponent({
     const organization = store.state.organization;
 
     const list: Ref<Member[]> = ref([]); 
-    list.value = (await membersList.get()).members;
-
-    const state = reactive({
-      currentPage: 1,
-    });
-
-    function changeOrganization() {
-      state.currentPage++;
-    }
+    list.value = (await membersList.get(store.state.page)).members;
 
     function IncrementPage() {
-      if(state.currentPage !== lastPage)
-        state.currentPage++;
+      if(store.state.page !== lastPage)
+      store.commit('incrementPage');
     }
     function DecrementPage() {
-      state.currentPage--;
+      store.commit('decrementPage');
     }
     function FirstPage() {
-      state.currentPage = 1;
+       store.commit('resetPage');
     }
     function LastPage() {
-      state.currentPage = lastPage;
+      store.commit('lastPage', lastPage);
     }
 
     // LIFECYCLE HOOKS
-    watch(() =>state.currentPage, async () => {
-      if(lastPage){list.value =  (await membersList.get(state.currentPage)).members;}});
+    watch(() =>store.state.page, async () => {
+      if(lastPage){list.value =  (await membersList.get(store.state.page)).members;}});
 
     return {
       organization,
